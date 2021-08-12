@@ -9,7 +9,7 @@
     "Typescript"
   ],
   "scripts": {
-    "test": "playwright test",
+    "test": "playwright test --browser=all",
     "lint": "gts lint",
     "clean": "gts clean",
     "fix": "gts fix",
