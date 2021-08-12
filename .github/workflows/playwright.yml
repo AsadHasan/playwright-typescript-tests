@@ -12,9 +12,5 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      # - name: Install operating system dependencies
-      #   run: npx playwright install-deps
-      # - name: Install test dependencies
-      #   run: npm ci
       - name: Run tests
         run: docker-compose up
