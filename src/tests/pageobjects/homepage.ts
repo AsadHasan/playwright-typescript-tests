@@ -1,7 +1,8 @@
 import {Page} from '@playwright/test';
+import {Inventory} from './inventory';
 
 export class Homepage {
-  page: Page;
+  readonly page: Page;
   usernameFieldSelector = '[data-test=username]';
   passwordFieldSelector = '[data-test=password]';
   loginButtonSelector = '[data-test=login-button]';
@@ -15,9 +16,10 @@ export class Homepage {
     return this;
   }
 
-  async login(username: string, password: string): Promise<void> {
+  async login(username: string, password: string): Promise<Inventory> {
     await this.page.type(this.usernameFieldSelector, username);
     await this.page.type(this.passwordFieldSelector, password);
     await this.page.click(this.loginButtonSelector);
+    return new Inventory(this.page);
   }
 }
