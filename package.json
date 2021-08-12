@@ -13,7 +13,6 @@
     "lint": "gts lint",
     "clean": "gts clean",
     "fix": "gts fix",
-    "posttest": "npm run lint",
     "prepare": "husky install"
   },
   "devDependencies": {
