@@ -5,12 +5,22 @@ on:
 
 jobs:
   e2e-tests:
-    runs-on: ubuntu-latest 
+    strategy:
+      matrix:
+        os:
+          - "ubuntu-latest"
+          - "macos-latest"
+          - "windows-latest"
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
+      - name: Install browsers' system dependencies
+        run: npx playwright install-deps
+      - name: Install tests' dependencies
+        run: npm ci
       - name: Run tests
-        run: docker-compose up
+        run: npm test
