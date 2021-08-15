@@ -12,11 +12,13 @@ test.describe('E2E product purchase', () => {
   let page: Page;
   let homepage: Homepage;
   let inventoryPage: Inventory;
+  let itemPage: Item;
 
   test.beforeAll(async ({browser}) => {
     page = await browser.newPage();
     homepage = new Homepage(page);
     inventoryPage = new Inventory(page);
+    itemPage = new Item(page);
   });
 
   test('Open homepage', async () => {
@@ -47,7 +49,12 @@ test.describe('E2E product purchase', () => {
       await inventoryPage.getItems()
     ).slice(-1)[0];
     expect(await mostExpensiveItem.textContent()).toContain(highetPrice);
-    const itemPage: Item = await inventoryPage.openItemPage(mostExpensiveItem);
+    await inventoryPage.openItemPage(mostExpensiveItem);
     expect(await itemPage.getHeaderTitle()).toEqual('BACK TO PRODUCTS');
+  });
+
+  test('Add most expensive item to shopping cart', async () => {
+    await itemPage.addToShoppingCart();
+    expect(await itemPage.isAddedToShoppingCart()).toBeTruthy();
   });
 });
